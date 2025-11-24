@@ -2,7 +2,6 @@ import time
 import platform
 import os
 terminal = ""
-my_system = platform.uname()
 print("Loading pyterminal")
 time.sleep(1)
 try:
@@ -24,12 +23,12 @@ while terminal != "shutdown":
         time.sleep(1)
         break
     elif terminal == "ds": # ds section
-        print(f"System: {my_system.system}")
-        print(f"Node Name: {my_system.node}")
-        print(f"Release: {my_system.release}")
-        print(f"Version: {my_system.version}")
-        print(f"Machine: {my_system.machine}")
-        print(f"Processor: {my_system.processor}\n")
+        print(f"\nSystem: {platform.uname().system}")
+        print(f"Node Name: {platform.uname().node}")
+        print(f"Release: {platform.uname().release}")
+        print(f"Version: {platform.uname().version}")
+        print(f"Machine: {platform.uname().machine}")
+        print(f"Processor: {platform.uname().processor}\n")
     elif terminal == "ver": # ver section
         print("0.9 Tester Build")
     elif terminal.startswith("lf"): # lf section
