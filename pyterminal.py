@@ -31,7 +31,7 @@ while terminal != "shutdown":
         print(f"Machine: {my_system.machine}")
         print(f"Processor: {my_system.processor}\n")
     elif terminal == "ver": # ver section
-        print("0.9 Dev Build")
+        print("0.9 Tester Build")
     elif terminal.startswith("lf"): # lf section
         if terminal.startswith("lf "):
             terminal = terminal.replace("lf ", "")
