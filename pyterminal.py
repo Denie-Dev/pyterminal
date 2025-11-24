@@ -23,15 +23,15 @@ while terminal != "shutdown":
         print("Shutting down pyservice")
         time.sleep(1)
         break
-    elif terminal == "device": # device section
+    elif terminal == "ds": # ds section
         print(f"System: {my_system.system}")
         print(f"Node Name: {my_system.node}")
         print(f"Release: {my_system.release}")
         print(f"Version: {my_system.version}")
         print(f"Machine: {my_system.machine}")
         print(f"Processor: {my_system.processor}\n")
-    elif terminal == "version": # version section
-        print("0.8 Dev Build")
+    elif terminal == "ver": # ver section
+        print("0.9 Dev Build")
     elif terminal.startswith("lf"): # lf section
         if terminal.startswith("lf "):
             terminal = terminal.replace("lf ", "")
@@ -139,12 +139,14 @@ while terminal != "shutdown":
                 print("file doesn't exist")
             except PermissionError:
                 print("invalid permissions")
-    elif terminal.startswith("echo"): # echo section
-        if terminal == "echo":
+    elif terminal.startswith("ot"): # ot section
+        if terminal == "ot":
             print("missing argument")
-        elif terminal.startswith("echo "):
-            terminal = terminal.replace("echo ", "")
+        elif terminal.startswith("ot "):
+            terminal = terminal.replace("ot ", "")
             print(terminal)
+    elif terminal == "help":
+        print("rf - read file\not - output text\nmd - make directory\naf - append (to) file\ndf - delete file\nds - device specifications\nver - version\nlf - list files\ncwd - current working directory\ncf - create file\ncd - change directory")
     elif terminal == "cls": # cls section
         for i in range(150):
             print("\n")
