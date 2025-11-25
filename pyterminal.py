@@ -27,7 +27,7 @@ while terminal != "exit":
         short_path = os.getcwd()
     terminal = input(f"{short_path}> ")
     if terminal == "exit":
-        print("Exiting pyservice")
+        print("Exiting pyterminal")
         break
     elif terminal == "ds": # ds section
         print(f"\nSystem: {platform.uname().system}")
