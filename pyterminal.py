@@ -129,7 +129,7 @@ while terminal != "shutdown":
             try:
                 with open(terminal, "r") as file:
                     content = file.read()
-                    if len(content) > 2000:
+                    if len(content) > 5000:
                         print("file exceeds limit")
                     else:
                         print(content)
