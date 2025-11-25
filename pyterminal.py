@@ -1,9 +1,8 @@
+print("Loading pyterminal")
 import time
 import platform
 import os
 terminal = ""
-print("Loading pyterminal")
-time.sleep(1)
 try:
     os.chdir(os.path.expanduser('~'))
 except PermissionError:
@@ -30,14 +29,14 @@ while terminal != "shutdown":
         print(f"Machine: {platform.uname().machine}")
         print(f"Processor: {platform.uname().processor}\n")
     elif terminal == "ver": # ver section
-        print("0.9 Tester Build")
+        print("PyTerminal Release 1.0\nBy Dennis")
     elif terminal.startswith("lf"): # lf section
         if terminal.startswith("lf "):
             terminal = terminal.replace("lf ", "")
             try:
                 print(os.listdir(terminal))
             except FileNotFoundError:
-                print("file/directory doesen't exist")
+                print("directory doesen't exist")
             except PermissionError:
                 print("invalid permissions")
         elif terminal == "lf":
