@@ -1,7 +1,12 @@
 print("Loading pyterminal")
+print("importing time")
 import time
+print("importing platform")
 import platform
+print("importing os")
 import os
+print("importing sys")
+import sys
 terminal = ""
 try:
     os.chdir(os.path.expanduser('~'))
@@ -11,6 +16,10 @@ except PermissionError:
 except FileNotFoundError:
     print("pyterminal failed to start: No home folder")
     exit()
+if "idlelib" in sys.modules:
+    print("using idle shell,\nslow preformance")
+else:
+    print("pyterminal started")
 while terminal != "exit":
     if len(os.getcwd()) > 30:
         short_path = "..." + str(os.getcwd())[-(30 - 3):]
@@ -18,7 +27,7 @@ while terminal != "exit":
         short_path = os.getcwd()
     terminal = input(f"{short_path}> ")
     if terminal == "exit":
-        print("Exitting pyservice")
+        print("Exiting pyservice")
         break
     elif terminal == "ds": # ds section
         print(f"\nSystem: {platform.uname().system}")
@@ -28,7 +37,7 @@ while terminal != "exit":
         print(f"Machine: {platform.uname().machine}")
         print(f"Processor: {platform.uname().processor}\n")
     elif terminal == "ver": # ver section
-        print("PyTerminal Release 1.0\nBy Dennis")
+        print("PyTerminal Release 1.3\nBy Dennis")
     elif terminal.startswith("lf"): # lf section
         if terminal.startswith("lf "):
             terminal = terminal.replace("lf ", "")
@@ -142,9 +151,39 @@ while terminal != "exit":
         elif terminal.startswith("ot "):
             terminal = terminal.replace("ot ", "")
             print(terminal)
+    elif terminal.startswith("sev"):
+        if terminal == "sev":
+            print("missing arguments")
+        elif terminal.startswith("sev "):
+            terminal = terminal.split(" ", 2)
+            if len(terminal) < 3:
+                print("missing arguments")
+            else:
+                part1 = terminal[1]
+                part2 = terminal[2]
+                os.environ[part1] = part2
+                print("success")
+        else:
+            print("invalid sev statement")
+    elif terminal.startswith("rev"):
+        if terminal == "rev":
+            print("missing argument")
+        elif terminal.startswith("rev "):
+            terminal = terminal.replace("rev ", "")
+            try:
+                if str(os.environ.get(terminal)) == "None":
+                    print("ev doesen't exist")
+                else:
+                    print(os.environ.get(terminal))
+            except PermissionError:
+                print("invalid permissions")
+            except KeyError:
+                print("ev doesen't exist")
+        else:
+            print("invalid rev statement")
     elif terminal == "help":
-        print("rf - read file\not - output text\nmd - make directory\naf - append (to) file\ndf - delete file\nds - device specifications\nver - version\nlf - list files\ncwd - current working directory\ncf - create file\ncd - change directory")
-    elif terminal == "cls": # cls section
+        print("rev - read enviormental variables\nsev - set enviormental variables\ncs - clear screen\nrf - read file\not - output text\nmd - make directory\naf - append (to) file\ndf - delete file\nds - device specifications\nver - version\nlf - list files\ncwd - current working directory\ncf - create file\ncd - change directory")
+    elif terminal == "cs": # cls section
         for i in range(150):
             print("\n")
     else: # invalid command section
