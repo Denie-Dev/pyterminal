@@ -11,15 +11,14 @@ except PermissionError:
 except FileNotFoundError:
     print("pyterminal failed to start: No home folder")
     exit()
-while terminal != "shutdown":
+while terminal != "exit":
     if len(os.getcwd()) > 30:
         short_path = "..." + str(os.getcwd())[-(30 - 3):]
     else:
         short_path = os.getcwd()
     terminal = input(f"{short_path}> ")
-    if terminal == "shutdown":
-        print("Shutting down pyservice")
-        time.sleep(1)
+    if terminal == "exit":
+        print("Exitting pyservice")
         break
     elif terminal == "ds": # ds section
         print(f"\nSystem: {platform.uname().system}")
