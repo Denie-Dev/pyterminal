@@ -15,6 +15,11 @@ cf  - create file                 | cf {file/part}<br>
 ver - version                     | ver<br>
 ds - device specification        | ds<br>
 cwd - current woking directory    | cwd<br>
+## Dependicies
+### Python - Base
+[Installer For Mac](https://www.python.org/ftp/python/3.14.0/python-3.14.0-macos11.pkg)<br>
+[Installer For Windows](https://www.python.org/ftp/python/pymanager/python-manager-25.0.msix)<br>
+[Installer For Linux/Unix](https://www.python.org/ftp/python/3.14.0/Python-3.14.0.tar.xz)
 ## Notices
 1. IDLE Shell is a gui shell and uses more rescources, please use terminal (python3 command) for more preformance. Typing the cs command in idle shell shows how slow it is.
 2. current rf character limit is 5000. In release 1.4, this limit can be changed.
