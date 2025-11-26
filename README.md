@@ -31,4 +31,4 @@ cwd - current woking directory    | cwd
 2. current rf character limit is 5000. In release 1.4, this limit can be changed.
 ## Errors
 1. Full disk access is needed for python if inavlid permission occurs when using md, lf, af or cd.
-Any other errors should be reported as [issues](https://github.com/Denie-Dev/pyterminal/issues) with good evidence.
+Any other errors should be reported as [issues](https://github.com/Denie-Dev/pyterminal/issues/new) with good evidence.
