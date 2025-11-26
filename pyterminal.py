@@ -1,13 +1,62 @@
 print("Loading pyterminal")
-print("importing time")
+print("importing modules")
 import time
-print("importing platform")
 import platform
-print("importing os")
 import os
-print("importing sys")
 import sys
+import urllib.request
+import json
+
+print("setting variables")
 terminal = ""
+__version__ = "1.3"  # current local version
+GITHUB_RAW_URL = "https://raw.githubusercontent.com/Denie-Dev/pyterminal/main/pyterminal.py"
+GITHUB_VERSION_URL = "https://raw.githubusercontent.com/Denie-Dev/pyterminal/main/version.json"
+os.environ[RF_LIMIT] = "5000"
+
+print("setting functions")
+def check_for_update():
+    try:
+        with urllib.request.urlopen(GITHUB_VERSION_URL, timeout=5) as resp:
+            data = resp.read().decode("utf-8")
+        info = json.loads(data)
+        latest = info.get("version", "").strip()
+        if not latest:
+            return
+        if latest != __version__:
+            do_update()
+    except Exception as e:
+        pass
+
+
+def do_update():
+    try:
+        print("downloading latest")
+        with urllib.request.urlopen(GITHUB_RAW_URL, timeout=10) as resp:
+            new_code = resp.read()
+
+        script_path = os.path.realpath(__file__)
+        backup_path = script_path + ".bak"
+
+        try:
+            if os.path.exists(backup_path):
+                os.remove(backup_path)
+            os.rename(script_path, backup_path)
+        except Exception:
+            print("backup error")
+
+        with open(script_path, "wb") as f:
+            f.write(new_code)
+
+        print("update finished")
+        time.sleep(2)
+        sys.exit(0)
+    except Exception as e:
+        print("Update failed:", e)
+        print("using old version")
+
+print("checking for update")
+check_for_update()
 try:
     os.chdir(os.path.expanduser('~'))
 except PermissionError:
@@ -150,7 +199,7 @@ while terminal != "exit":
             try:
                 with open(terminal, "r") as file:
                     content = file.read()
-                    if len(content) > 5000:
+                    if len(content) > os.environ.get(RF_LIMIT):
                         print("file exceeds limit")
                     else:
                         print(content)
