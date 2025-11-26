@@ -20,6 +20,19 @@ if "idlelib" in sys.modules:
     print("using idle shell,\nslow preformance")
 else:
     print("pyterminal started")
+if os.environ.get("PY_LOGO_STARTUP") == "1":
+    time.sleep(1)
+    print("             _                      _             _ ".center(os.get_terminal_size().columns))
+    time.sleep(1)
+    print(" _ __  _   _| |_ ___ _ __ _ __ ___ (_)_ __   __ _| |".center(os.get_terminal_size().columns))
+    time.sleep(1)
+    print("| '_ \\| | | | __/ _ \\ '__| '_ ` _ \\| | '_ \\ / _` | |".center(os.get_terminal_size().columns))
+    time.sleep(1)
+    print("| |_) | |_| | ||  __/ |  | | | | | | | | | | (_| | |".center(os.get_terminal_size().columns))
+    time.sleep(1)
+    print("| .__/ \\__, |\\__\\___|_|  |_| |_| |_|_|_| |_|\\__,_|_|".center(os.get_terminal_size().columns))
+    time.sleep(1)
+    print("|_|    |___/                                        ".center(os.get_terminal_size().columns))
 while terminal != "exit":
     if len(os.getcwd()) > 30:
         short_path = "..." + str(os.getcwd())[-(30 - 3):]
