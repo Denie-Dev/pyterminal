@@ -3,29 +3,18 @@ A small, lightweight terminal built on python.
 ## Commands
 Use help to check current commands.
 
-rf  - read file                   | rf {file/path}
-
-df  - delete file                 | df {file/path}
-
-sev - set enviormental variables  | sev {ev name} {ev value}
-
-rev - read enviormental variables | rev {ev name}
-
-af  - append (to) file            | af {file/path} {text}
-
-cs  - clear screen                | cs
-
-ot  - output text                 | ot {text}
-
-md  - make directory              | md {dir/path}
-
-cf  - create file                 | cf {file/part}
-
-ver - version                     | ver
-
-ds  - device specification        | ds
-
-cwd - current woking directory    | cwd
+rf - read file                   | rf {file/path}<br>
+df - delete file                 | df {file/path}<br>
+sev - set enviormental variables  | sev {ev name} {ev value}<br>
+rev - read enviormental variables | rev {ev name}<br>
+af - append (to) file            | af {file/path} {text}<br>
+cs - clear screen                | cs<br>
+ot  - output text                 | ot {text}<br>
+md  - make directory              | md {dir/path}<br>
+cf  - create file                 | cf {file/part}<br>
+ver - version                     | ver<br>
+ds - device specification        | ds<br>
+cwd - current woking directory    | cwd<br>
 ## Notices
 1. IDLE Shell is a gui shell and uses more rescources, please use terminal (python3 command) for more preformance. Typing the cs command in idle shell shows how slow it is.
 2. current rf character limit is 5000. In release 1.4, this limit can be changed.
