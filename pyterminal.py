@@ -26,6 +26,8 @@ def check_for_update():
         if latest != __version__:
             do_update()
     except Exception as e:
+        if os.environ.get("DEBUG") == "1":
+            print("error: " + e)
         pass
 
 
