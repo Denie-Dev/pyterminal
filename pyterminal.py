@@ -9,7 +9,7 @@ import json
 
 print("setting variables")
 terminal = ""
-__version__ = "1.3"  # current local version
+__version__ = "1.4"  # current local version
 GITHUB_RAW_URL = "https://raw.githubusercontent.com/Denie-Dev/pyterminal/main/pyterminal.py"
 GITHUB_VERSION_URL = "https://raw.githubusercontent.com/Denie-Dev/pyterminal/main/version.json"
 os.environ[RF_LIMIT] = "5000"
