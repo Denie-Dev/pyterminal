@@ -199,7 +199,7 @@ while terminal != "exit":
             try:
                 with open(terminal, "r") as file:
                     content = file.read()
-                    if len(content) > os.environ.get(RF_LIMIT):
+                    if len(content) > os.environ.get("RF_LIMIT"):
                         print("file exceeds limit")
                     else:
                         print(content)
