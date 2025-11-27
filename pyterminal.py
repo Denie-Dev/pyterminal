@@ -12,7 +12,7 @@ terminal = ""
 __version__ = "1.4"  # current local version
 GITHUB_RAW_URL = "https://raw.githubusercontent.com/Denie-Dev/pyterminal/main/pyterminal.py"
 GITHUB_VERSION_URL = "https://raw.githubusercontent.com/Denie-Dev/pyterminal/main/version.json"
-os.environ[RF_LIMIT] = "5000"
+os.environ["RF_LIMIT"] = "5000"
 
 print("setting functions")
 def check_for_update():
