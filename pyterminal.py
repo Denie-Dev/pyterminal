@@ -247,7 +247,7 @@ while terminal != "exit":
             print("invalid rev statement")
     elif terminal == "help":
         print("rev - read enviormental variables\nsev - set enviormental variables\ncs - clear screen\nrf - read file\not - output text\nmd - make directory\naf - append (to) file\ndf - delete file\nds - device specifications\nver - version\nlf - list files\ncwd - current working directory\ncf - create file\ncd - change directory")
-    elif terminal == "cs": # cls section
+    elif terminal == "cs": # cs section
         for i in range(150):
             print("\n")
     else: # invalid command section
