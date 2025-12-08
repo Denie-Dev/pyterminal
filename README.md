@@ -2,19 +2,22 @@
 A small, lightweight terminal built on python.
 ## Commands
 Use help to check current commands.
-
-rf - read file                   | rf {file/path}<br>
-df - delete file                 | df {file/path}<br>
-sev - set enviormental variables  | sev {ev name} {ev value}<br>
-rev - read enviormental variables | rev {ev name}<br>
-af - append (to) file            | af {file/path} {text}<br>
-cs - clear screen                | cs<br>
-ot  - output text                 | ot {text}<br>
-md  - make directory              | md {dir/path}<br>
-cf  - create file                 | cf {file/part}<br>
-ver - version                     | ver<br>
-ds - device specification        | ds<br>
-cwd - current woking directory    | cwd<br>
+```
+af   - append (to) file                        | af {file/path} {text}<br>
+cf   - create file                             | cf {file/part}<br>
+cp   - copy files                              | cp {file1} {file2}<br>
+cs   - clear screen                            | cs<br>
+cwd  - current woking directory                | cwd<br>
+df   - delete file                             | df {file/path}<br>
+ds   - device specification                    | ds<br>
+help - help                                    | help<br>
+md.  - make directory                          | md {dir/path}<br>
+ot   - output text                             | ot {text}<br>
+rev  - read enviormental variables             | rev {ev name}<br>
+rf   - read file                               | rf {file/path}<br>
+sev  - set enviormental variables              | sev {ev name} {ev value}<br>
+ver  - version                                 | ver<br>
+```
 ## Dependicies
 ### Python - Base
 [Installer For Mac](https://www.python.org/ftp/python/3.14.0/python-3.14.0-macos11.pkg)<br>

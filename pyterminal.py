@@ -9,7 +9,7 @@ import json
 
 print("setting variables")
 terminal = ""
-__version__ = "1.4.2"  # current local version
+__version__ = "1.4.3"  # current local version
 GITHUB_RAW_URL = "https://raw.githubusercontent.com/Denie-Dev/pyterminal/main/pyterminal.py"
 GITHUB_VERSION_URL = "https://raw.githubusercontent.com/Denie-Dev/pyterminal/main/version.json"
 os.environ["RF_LIMIT"] = "5000"
@@ -167,17 +167,36 @@ while terminal != "exit":
             print("success")
         else:
             print("invalid md statement")
-    elif terminal.startswith("cf"): # cf section
-        if terminal == "cf":
+    elif terminal.startswith("mf"): # mf section
+        if terminal == "mf":
             print("missing argument")
             break
-        elif terminal.startswith("cf "):
-            terminal = terminal.replace("cf ", "")
+        elif terminal.startswith("mf "):
+            terminal = terminal.replace("mf ", "")
             try:
                 open(terminal, "x").close()
                 print("success")
             except FileExistsError:
                 print("file exists")
+    elif terminal.startswith("cp"): # cp section
+        parts = terminal.split(" ", 2)
+        if len(parts) < 3:
+            print("missing arguments")
+        else:
+            source = parts[1].strip()
+            destination = parts[2].strip()
+            try:
+                with open(source, "r") as src_file:
+                    content = src_file.read()
+                with open(destination, "x") as dst_file:
+                    dst_file.write(content)
+                print("success")
+            except FileNotFoundError:
+                print("file1 doesn't exist")
+            except FileExistsError:
+                print("file2 exists")
+            except PermissionError:
+                print("invalid permissions")
     elif terminal.startswith("af "): # af section
         parts = terminal.split(" ", 2)
         if len(parts) < 3:
@@ -246,7 +265,7 @@ while terminal != "exit":
         else:
             print("invalid rev statement")
     elif terminal == "help":
-        print("rev - read enviormental variables\nsev - set enviormental variables\ncs - clear screen\nrf - read file\not - output text\nmd - make directory\naf - append (to) file\ndf - delete file\nds - device specifications\nver - version\nlf - list files\ncwd - current working directory\ncf - create file\ncd - change directory")
+        print("rev - read enviormental variables\nsev - set enviormental variables\ncs - clear screen\nrf - read file\not - output text\nmd - make directory\naf - append (to) file\ndf - delete file\nds - device specifications\nver - version\nlf - list files\ncwd - current working directory\nmf - make file\ncp - copy file\ncd - change directory")
     elif terminal == "cs": # cs section
         for i in range(150):
             print("\n")
