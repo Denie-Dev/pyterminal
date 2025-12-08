@@ -178,17 +178,17 @@ while terminal != "exit":
                 print("success")
             except FileExistsError:
                 print("file exists")
-    elif terminal.startswith("cp"): # cp section
+    elif terminal.startswith("cf"): # cf section
         parts = terminal.split(" ", 2)
-        if len(parts) < 3:
+        if len(terminal) < 3:
             print("missing arguments")
         else:
-            source = parts[1].strip()
-            destination = parts[2].strip()
+            file1 = terminal[1].strip()
+            file2 = terminal[2].strip()
             try:
-                with open(source, "r") as src_file:
+                with open(file1, "r") as src_file:
                     content = src_file.read()
-                with open(destination, "x") as dst_file:
+                with open(file2, "x") as dst_file:
                     dst_file.write(content)
                 print("success")
             except FileNotFoundError:

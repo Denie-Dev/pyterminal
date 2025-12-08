@@ -3,18 +3,18 @@ A small, lightweight terminal built on python.
 ## Commands
 Use help to check current commands.
 ```
-af   - append (to) file                        | af {file/path} {text}<br>
-cf   - create file                             | cf {file/part}<br>
-cp   - copy files                              | cp {file1} {file2}<br>
+af   - append (to) files                       | af {file/path} {text}<br>
+cf   - copy files                              | cf {file1} {file2}<br>
 cs   - clear screen                            | cs<br>
 cwd  - current woking directory                | cwd<br>
-df   - delete file                             | df {file/path}<br>
+df   - delete files                            | df {file/path}<br>
 ds   - device specification                    | ds<br>
 help - help                                    | help<br>
-md.  - make directory                          | md {dir/path}<br>
+md  - make directory                          | md {dir/path}<br>
+mf   - make  files                             | mf {file/part}<br>
 ot   - output text                             | ot {text}<br>
 rev  - read enviormental variables             | rev {ev name}<br>
-rf   - read file                               | rf {file/path}<br>
+rf   - read files                              | rf {file/path}<br>
 sev  - set enviormental variables              | sev {ev name} {ev value}<br>
 ver  - version                                 | ver<br>
 ```
