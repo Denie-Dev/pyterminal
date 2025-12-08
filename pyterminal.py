@@ -27,7 +27,7 @@ def check_for_update():
             do_update()
     except Exception as e:
         if os.environ.get("DEBUG") == "1":
-            print("error: " + e)
+            print("error: " + str(e))
         pass
 
 
