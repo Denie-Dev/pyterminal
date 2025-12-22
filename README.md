@@ -10,7 +10,7 @@ cwd  - current woking directory                | cwd<br>
 df   - delete files                            | df {file/path}<br>
 ds   - device specification                    | ds<br>
 help - help                                    | help<br>
-md  - make directory                          | md {dir/path}<br>
+md   - make directory                          | md {dir/path}<br>
 mf   - make  files                             | mf {file/part}<br>
 ot   - output text                             | ot {text}<br>
 rev  - read enviormental variables             | rev {ev name}<br>

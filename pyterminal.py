@@ -6,10 +6,34 @@ import os
 import sys
 import urllib.request
 import json
+import logging
+import ssl
+
+version_json_path = os.path.join(os.path.dirname(__file__), 'version.json')
+if os.path.exists(version_json_path):
+    logging.info("Removing version.json")
+    os.remove(version_json_path)
 
 print("setting variables")
+log_file = os.path.join(os.path.dirname(__file__), 'log.txt')
+log_level_file = os.path.join(os.path.dirname(__file__), 'log_level.txt')
+# Load log level from file
+try:
+    with open(log_level_file, 'r') as f:
+        log_level = int(f.read().strip())
+except (FileNotFoundError, ValueError):
+    log_level = 3
+logging.basicConfig(filename=log_file, level=logging.INFO, format='%(asctime)s - %(message)s')
+# Set logging level based on log_level
+if log_level == 1:
+    logging.getLogger().setLevel(logging.ERROR)
+elif log_level == 2:
+    logging.getLogger().setLevel(logging.WARNING)
+else:
+    logging.getLogger().setLevel(logging.INFO)
+logging.info("PyTerminal started")
 terminal = ""
-__version__ = "1.4.3"  # current local version
+__version__ = "1.5.4"  # current local version
 GITHUB_RAW_URL = "https://raw.githubusercontent.com/Denie-Dev/pyterminal/main/pyterminal.py"
 GITHUB_VERSION_URL = "https://raw.githubusercontent.com/Denie-Dev/pyterminal/main/version.json"
 os.environ["RF_LIMIT"] = "5000"
@@ -17,15 +41,17 @@ os.environ["RF_LIMIT"] = "5000"
 print("setting functions")
 def check_for_update():
     try:
-        with urllib.request.urlopen(GITHUB_VERSION_URL, timeout=5) as resp:
+        with urllib.request.urlopen(GITHUB_VERSION_URL, timeout=5, context=ssl._create_unverified_context()) as resp:
             data = resp.read().decode("utf-8")
         info = json.loads(data)
         latest = info.get("version", "").strip()
         if not latest:
             return
         if latest != __version__:
+            logging.info(f"Update available: {latest}")
             do_update()
     except Exception as e:
+        logging.error(f"Update check failed: {str(e)}")
         if os.environ.get("DEBUG") == "1":
             print("error: " + str(e))
         pass
@@ -33,8 +59,9 @@ def check_for_update():
 
 def do_update():
     try:
+        logging.info("Starting update download")
         print("downloading latest")
-        with urllib.request.urlopen(GITHUB_RAW_URL, timeout=10) as resp:
+        with urllib.request.urlopen(GITHUB_RAW_URL, timeout=10, context=ssl._create_unverified_context()) as resp:
             new_code = resp.read()
 
         script_path = os.path.realpath(__file__)
@@ -45,15 +72,18 @@ def do_update():
                 os.remove(backup_path)
             os.rename(script_path, backup_path)
         except Exception:
+            logging.warning("Backup creation failed")
             print("backup error")
 
         with open(script_path, "wb") as f:
             f.write(new_code)
 
+        logging.info("Update completed successfully")
         print("update finished")
         time.sleep(2)
         sys.exit(0)
     except Exception as e:
+        logging.error(f"Update failed: {str(e)}")
         print("Update failed:", e)
         print("using old version")
 
@@ -62,14 +92,18 @@ check_for_update()
 try:
     os.chdir(os.path.expanduser('~'))
 except PermissionError:
+    logging.error("Failed to start: Home folder PermissionError")
     print("pyterminal failed to start: Home folder PermissionError")
     exit()
 except FileNotFoundError:
+    logging.error("Failed to start: No home folder")
     print("pyterminal failed to start: No home folder")
     exit()
 if "idlelib" in sys.modules:
+    logging.warning("Using IDLE shell - slow performance")
     print("using idle shell,\nslow preformance")
 else:
+    logging.info("PyTerminal started successfully")
     print("pyterminal started")
 if os.environ.get("PY_LOGO_STARTUP") == "1":
     time.sleep(1)
@@ -90,7 +124,9 @@ while terminal != "exit":
     else:
         short_path = os.getcwd()
     terminal = input(f"{short_path}> ")
+    logging.info(f"Command executed: {terminal}")
     if terminal == "exit":
+        logging.info("PyTerminal exiting")
         print("Exiting pyterminal")
         break
     elif terminal == "ds": # ds section
@@ -101,7 +137,7 @@ while terminal != "exit":
         print(f"Machine: {platform.uname().machine}")
         print(f"Processor: {platform.uname().processor}\n")
     elif terminal == "ver": # ver section
-        print("PyTerminal Release 1.3\nBy Dennis")
+        print(f"PyTerminal Release {__version__}\nBy Dennis")
     elif terminal.startswith("lf"): # lf section
         if terminal.startswith("lf "):
             terminal = terminal.replace("lf ", "")
@@ -197,7 +233,64 @@ while terminal != "exit":
                 print("file2 exists")
             except PermissionError:
                 print("invalid permissions")
-    elif terminal.startswith("af "): # af section
+    elif terminal.startswith("log"): # log section
+        if terminal == "log":
+            print("missing arguments")
+        elif terminal.startswith("log "):
+            parts = terminal.split(" ", 2)
+            if len(parts) < 2:
+                print("missing subcommand")
+            else:
+                subcommand = parts[1]
+                if subcommand == "w":
+                    if len(parts) < 3:
+                        print("missing text to write")
+                    else:
+                        text = parts[2]
+                        try:
+                            with open(log_file, "a") as f:
+                                f.write(text + "\n")
+                            print("success")
+                        except PermissionError:
+                            print("invalid permissions")
+                elif subcommand == "clear":
+                    try:
+                        with open(log_file, "w") as f:
+                            f.write("")
+                        print("log cleared")
+                    except PermissionError:
+                        print("invalid permissions")
+                elif subcommand == "level":
+                    if len(parts) < 3:
+                        print(log_level)
+                    else:
+                        try:
+                            level = int(parts[2])
+                            if level == 1:
+                                log_level = 1
+                                logging.getLogger().setLevel(logging.ERROR)
+                                print("log level set to 1")
+                            elif level == 2:
+                                log_level = 2
+                                logging.getLogger().setLevel(logging.WARNING)
+                                print("log level set to 2")
+                            elif level == 3:
+                                log_level = 3
+                                logging.getLogger().setLevel(logging.INFO)
+                                print("log level set to 3")
+                            else:
+                                print("invalid level (1-3)")
+                                continue
+                            # Save the new log level to file
+                            with open(log_level_file, 'w') as f:
+                                f.write(str(log_level))
+                        except ValueError:
+                            print("invalid level number")
+                else:
+                    print("invalid log subcommand")
+        else:
+            print("invalid log statement")
+    elif terminal.startswith("af"): # af section
         parts = terminal.split(" ", 2)
         if len(parts) < 3:
             print("missing arguments")
@@ -265,7 +358,7 @@ while terminal != "exit":
         else:
             print("invalid rev statement")
     elif terminal == "help":
-        print("rev - read enviormental variables\nsev - set enviormental variables\ncs - clear screen\nrf - read file\not - output text\nmd - make directory\naf - append (to) file\ndf - delete file\nds - device specifications\nver - version\nlf - list files\ncwd - current working directory\nmf - make file\ncp - copy file\ncd - change directory")
+        print("rev - read enviormental variables\nsev - set enviormental variables\ncs - clear screen\nrf - read file\not - output text\nmd - make directory\naf - append (to) file\ndf - delete file\nds - device specifications\nver - version\nlf - list files\ncwd - current working directory\nmf - make file\ncp - copy file\ncd - change directory\nlog - change log settings\n    log w <text> - append text to log\n    log clear - clear log\n    log level <1-3> - set log level\nexit - exit pyterminal")
     elif terminal == "cs": # cs section
         for i in range(150):
             print("\n")
