@@ -538,7 +538,7 @@ class PyTerminalGUI:
             return
 
         # show the command in the output
-        self.append_output(f"{}> {cmd}")
+        self.append_output(f"{str(os.getcwd())}> {cmd}")
         self.entry.delete(0, tk.END)
 
         if cmd == "exit":
