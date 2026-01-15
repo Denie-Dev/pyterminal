@@ -9,20 +9,13 @@ import ssl
 import tkinter as tk
 from tkinter import scrolledtext, messagebox, filedialog
 
-print("Loading pyterminal")
-print("importing modules")
-
-# ------------- original startup / logging logic (slightly cleaned) -------------
-
 version_json_path = os.path.join(os.path.dirname(__file__), 'version.json')
 if os.path.exists(version_json_path):
     logging.info("Removing version.json")
     os.remove(version_json_path)
 
-log_file = os.path.join(os.path.dirname(__file__), 'log.txt')
+log_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'log.txt')
 log_level_file = os.path.join(os.path.dirname(__file__), 'log_level.txt')
-
-print("setting variables")
 
 # Load log level from file
 try:
@@ -34,7 +27,8 @@ except (FileNotFoundError, ValueError):
 logging.basicConfig(
     filename=log_file,
     level=logging.INFO,
-    format='%(asctime)s - %(message)s'
+    format='(GUI) %(asctime)s - %(levelname)s - %(message)s',
+    filemode='a'
 )
 
 if log_level == 1:
@@ -46,7 +40,7 @@ else:
 
 logging.info("PyTerminal started (GUI)")
 
-__version__ = "1.5.4"  # current local version
+__version__ = "1.6"  # current local version
 GITHUB_RAW_URL = "https://raw.githubusercontent.com/Denie-Dev/pyterminal/main/pyterminal.py"
 GITHUB_VERSION_URL = "https://raw.githubusercontent.com/Denie-Dev/pyterminal/main/version.json"
 

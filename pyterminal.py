@@ -15,14 +15,16 @@ if os.path.exists(version_json_path):
     os.remove(version_json_path)
 
 print("setting variables")
-log_file = os.path.join(os.path.dirname(__file__), 'log.txt')
+log_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'log.txt')
 log_level_file = os.path.join(os.path.dirname(__file__), 'log_level.txt')
 # Load log level from file
+
 try:
     with open(log_level_file, 'r') as f:
         log_level = int(f.read().strip())
 except (FileNotFoundError, ValueError):
     log_level = 3
+print(log_file)
 logging.basicConfig(filename=log_file, level=logging.DEBUG,
                     format='%(asctime)s - %(levelname)s - %(message)s',
                     filemode='a') # Set logging level based on log_level
@@ -34,7 +36,7 @@ else:
     logging.getLogger().setLevel(logging.INFO)
 logging.info("PyTerminal started")
 terminal = ""
-__version__ = "1.5.4"  # current local version
+__version__ = "1.6"  # current local version
 GITHUB_RAW_URL = "https://raw.githubusercontent.com/Denie-Dev/pyterminal/main/pyterminal.py"
 GITHUB_VERSION_URL = "https://raw.githubusercontent.com/Denie-Dev/pyterminal/main/version.json"
 os.environ["RF_LIMIT"] = "5000"
