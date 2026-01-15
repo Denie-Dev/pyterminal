@@ -23,8 +23,9 @@ try:
         log_level = int(f.read().strip())
 except (FileNotFoundError, ValueError):
     log_level = 3
-logging.basicConfig(filename=log_file, level=logging.INFO, format='%(asctime)s - %(message)s')
-# Set logging level based on log_level
+logging.basicConfig(filename=log_file, level=logging.DEBUG,
+                    format='%(asctime)s - %(levelname)s - %(message)s',
+                    filemode='a') # Set logging level based on log_level
 if log_level == 1:
     logging.getLogger().setLevel(logging.ERROR)
 elif log_level == 2:
