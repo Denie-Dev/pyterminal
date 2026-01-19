@@ -46,8 +46,6 @@ GITHUB_VERSION_URL = "https://raw.githubusercontent.com/Denie-Dev/pyterminal/mai
 
 os.environ["RF_LIMIT"] = "5000"
 
-print("setting functions")
-
 def check_for_update():
     try:
         with urllib.request.urlopen(
