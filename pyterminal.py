@@ -24,7 +24,7 @@ version_json_path = os.path.join(os.path.dirname(__file__), 'version.json')
 #--------------------------------------------------------
 
 #----------------Update Variables--------------
-__version__ = "1.6"  # current local version
+__version__ = "1.6.2"  # current local version
 GITHUB_RAW_URL = "https://raw.githubusercontent.com/Denie-Dev/pyterminal/main/pyterminal.py"
 GITHUB_VERSION_URL = "https://raw.githubusercontent.com/Denie-Dev/pyterminal/main/version.json"
 #----------------------------------------------
